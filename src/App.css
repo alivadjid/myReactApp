@@ -1,0 +1,27 @@
+* {
+  margin-top: 0;
+}
+.App {
+  text-align: center;
+}
+
+.container{
+  margin: 0 auto;
+  max-width: 1100px;
+  /* background-color: aqua; */
+  /* display: flex;
+  justify-content: center; */
+}
+
+.container__item {
+  display: flex;
+  justify-content: center;
+}
+
+.container__item li{
+  margin-right: 20px;
+  list-style-type: none;
+  cursor: pointer;
+}
+
+
