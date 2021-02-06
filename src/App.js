@@ -4,6 +4,7 @@ import './App.css'
 import Navbar from './Components/Navbar/Navbar'
 import Users from './Components/Users/Users'
 import PostList from './Components/PostList/PostList'
+import Loader from './Components/Loader'
 
 function getList(url,func){
   fetch(url)
@@ -20,14 +21,19 @@ function App() {
   getList('https://jsonplaceholder.typicode.com/posts', setPosts)
 }, [])
 
-
+  
 
   return (
     <div className="App">
       <div className="container">
         <Navbar />
-        <Users usersp={users}/>
-        <PostList postsp={posts}/>
+        {
+          users.length > 0 ? <Users usersp={users}/> : <Loader />        
+        }<br/>
+        {
+          posts.length > 0 ? <PostList postsp={posts}/> : <Loader />
+        }
+        
       </div>
     </div>
   );
