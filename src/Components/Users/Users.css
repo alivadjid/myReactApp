@@ -1,7 +1,9 @@
 .users{
     text-align: center;
+    padding-top: 60px;
 }
 table {
+    margin-top: 40px;
     width: 100%;
 }
 

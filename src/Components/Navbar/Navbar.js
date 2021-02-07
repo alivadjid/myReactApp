@@ -4,15 +4,18 @@ const Navbar = () => {
     
     return (
         <div>
-            <ul className="container__item">
+            <ul className="navbar">
                 <li>
-                    Пользователи
+                    <a href="#userList">Пользователи</a>
                 </li>
                 <li>
-                    Посты
+                    <a href="#postList">Посты</a>                    
                 </li>
                 <li>
-                    Альбомы
+                    <a href="#">Добавить пост</a>                    
+                </li>
+                <li>
+                    <a href="#">Альбомы</a>                    
                 </li>
             </ul>
         </div>

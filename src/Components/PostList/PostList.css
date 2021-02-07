@@ -1,7 +1,18 @@
 .posts {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .posts__list__item {
     height: 100px;
+    margin-top: 2px;
+}
+
+.posts__list__body {
+    border: 1px solid green;
+}
+.posts__list__info {
+    display: flex;
+}
+.posts__list__email {
+    margin-left: 20px;
 }
