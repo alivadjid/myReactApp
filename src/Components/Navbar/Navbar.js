@@ -12,7 +12,7 @@ const Navbar = () => {
                     <a href="#postList">Посты</a>                    
                 </li>
                 <li>
-                    <a href="#">Добавить пост</a>                    
+                    <a href="#addpost">Добавить пост</a>                    
                 </li>
                 <li>
                     <a href="#">Альбомы</a>                    

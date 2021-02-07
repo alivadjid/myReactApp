@@ -1,0 +1,13 @@
+.addpost {
+	margin-bottom: 100px;
+}
+.addpost__item {
+	display: flex;
+	justify-content: center;
+}
+.addpost__item__list{
+	margin-left: 80px;
+}
+.addpost__item__btn {
+	margin-top: 30px;
+}

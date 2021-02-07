@@ -5,11 +5,29 @@ import Navbar from './Components/Navbar/Navbar'
 import Users from './Components/Users/Users'
 import PostList from './Components/PostList/PostList'
 import Loader from './Components/Loader'
+import PostAdd from './Components/AddPost'
 
 function getList(url,func){
   fetch(url)
     .then((res) => res.json())
     .then(res => func(res))
+}
+
+function sendPost(userId, theme, message, setPosts){
+  //setPosts([{userId: 1, id: 1, title:'hello', body:'from' }, {userId: 3, id: 2, title:'привет', body:'от' }])
+  fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  body: JSON.stringify({
+    title: theme,
+    body: message,
+    userId
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+})
+  .then((response) => response.json())
+  .then((json) => setPosts( el => [...el, json]));
 }
 
 function App() {
@@ -21,9 +39,6 @@ function App() {
   getList('https://jsonplaceholder.typicode.com/posts', setPosts)
 }, [])
 
-function getUser(userId) {
-  console.log(users.find(e => e.id == userId))
-}
 function findUser(id, item){
   let obj = users.find(val => val.id == id)
   return (
@@ -39,6 +54,14 @@ function findUser(id, item){
   )
 }
 
+useEffect(() => {
+  console.log(posts)
+}, [posts])
+
+function addPost(userId, theme, message){
+  sendPost(userId, theme, message, setPosts)
+  
+}
   return (
     <div className="App">
        <Navbar />
@@ -49,7 +72,7 @@ function findUser(id, item){
         {
           posts.length > 0 ? <PostList postsp={posts} findUser={findUser}/> : <Loader />
         }<br/>
-        
+        <PostAdd addPost={addPost}/>
         
       </div>
     </div>
