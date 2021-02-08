@@ -12,7 +12,7 @@ const Albums = ({albums, findUser, showAlbum}) => {
 					{
 						albums.map(e => {
 							return (
-								<div className="albumList__list__item" key={e.id} onClick={() => showAlbum(e.id)}>
+								<div className="albumList__list__item" key={e.id} onClick={() => showAlbum(e.id, e.userId)}>
 									{findUser(e.userId)}
 									<div className="albumList__list__title">
 										{e.title}

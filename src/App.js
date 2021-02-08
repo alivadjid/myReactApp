@@ -46,6 +46,7 @@ function App() {
   const [albums, setAlbums] = useState([])
   const [albumId, setAlbumId] = useState(0)
   const [albumPhotos, setAlbumPhotos] = useState([])
+  const [userData, setUserData] = useState('')
 
   useEffect(() => {      
   getList(usersUrl, setUsers)  
@@ -82,14 +83,15 @@ function addPost(userId, theme, message){
   sendPost(userId, theme, message, setPosts, newPostnumber)
 }
 
-function showAlbum(id){
+function showAlbum(id, userId){
   setAlbumId(id)
+  setUserData(findUser(userId))
   let com = `?albumId=${id}`
   getList(photosUrl, setAlbumPhotos, com)
 }
 
 let album = albums.length > 0 ? <Albums albums={albums} findUser={findUser} showAlbum={showAlbum}/> : <Loader />
-let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos}/> : <Loader />
+let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos} userData={userData} setAlbumId={setAlbumId}/> : <Loader />
   return (
     <div className="App">
        <Navbar />
