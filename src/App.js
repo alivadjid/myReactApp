@@ -9,6 +9,7 @@ import PostAdd from './Components/AddPost'
 import Albums from './Components/Albums'
 import ShowAlbum from './Components/ShowAlbum'
 import {usersUrl, postsUrl, albumsUrl, photosUrl} from './Const'
+import {Context} from './Context'
 
 function getList(url,func, com = ''){
   let urlF = url + com
@@ -90,17 +91,20 @@ function showAlbum(id, userId){
   getList(photosUrl, setAlbumPhotos, com)
 }
 
-let album = albums.length > 0 ? <Albums albums={albums} findUser={findUser} showAlbum={showAlbum}/> : <Loader />
+
+let album = albums.length > 0 ? <Albums albums={albums} showAlbum={showAlbum}/> : <Loader />
 let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos} userData={userData} setAlbumId={setAlbumId}/> : <Loader />
+
   return (
-    <div className="App">
+    <Context.Provider value={{findUser}}>
+      <div className="App">
        <Navbar />
       <div className="container">
         {
           users.length > 0 ? <Users users={users}/> : <Loader />        
         }<br/>
         {
-          posts.length > 0 ? <PostList posts={posts} findUser={findUser}/> : <Loader />
+          posts.length > 0 ? <PostList posts={posts}/> : <Loader />
         }<br/>
         <PostAdd addPost={addPost}/>
         {
@@ -110,6 +114,8 @@ let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos} userD
         }
       </div>
     </div>
+    </Context.Provider>
+    
   );
 }
 

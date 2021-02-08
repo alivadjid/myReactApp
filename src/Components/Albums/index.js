@@ -1,10 +1,10 @@
-import React from 'react'
-
+import React, {useContext} from 'react'
+import {Context} from '../../Context'
 import './main.css'
 
-const Albums = ({albums, findUser, showAlbum}) => {
+const Albums = ({albums, showAlbum}) => {
 
-
+	const { findUser } = useContext(Context)
 	return (
 		<div className="albumList" id="albums">
 			<h3>Альбомы</h3>

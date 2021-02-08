@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import {Context} from '../../Context'
 
 import './PostList.css'
 
-const PostList = ({posts, findUser}) => {
-    // const [posts, setPosts] = useState([])
-
-    // useEffect(()=> {
-    //     setPosts(postsp)
-    //     console.log('Posts Load')
-    // }, [postsp])
+const PostList = ({posts}) => {
+  const { findUser } = useContext(Context)
     return (
         <div className="posts" id="postList">
             <h4>
