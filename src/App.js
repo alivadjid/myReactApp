@@ -6,9 +6,12 @@ import Users from './Components/Users/Users'
 import PostList from './Components/PostList/PostList'
 import Loader from './Components/Loader'
 import PostAdd from './Components/AddPost'
+import Albums from './Components/Albums'
+import ShowAlbum from './Components/ShowAlbum'
 
-function getList(url,func){
-  fetch(url)
+function getList(url,func, com = ''){
+  let urlF = url + com
+  fetch(urlF)
     .then((res) => res.json())
     .then(res => func(res))
 }
@@ -39,13 +42,17 @@ function App() {
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [newPostnumber, setNewPostnumber] = useState(101)
+  const [albums, setAlbums] = useState([])
+  const [albumId, setAlbumId] = useState(0)
+  const [albumPhotos, setAlbumPhotos] = useState([])
 
   useEffect(() => {      
   getList('https://jsonplaceholder.typicode.com/users', setUsers)  
   getList('https://jsonplaceholder.typicode.com/posts', setPosts)
+  getList('https://jsonplaceholder.typicode.com/albums', setAlbums)
 }, [])
 
-function findUser(id, item){
+function findUser(id){
   let obj = users.find(val => val.id == id)
   return (
       <div className="posts__list__info"> 
@@ -61,13 +68,22 @@ function findUser(id, item){
 }
 
 useEffect(() => {
-  console.log(posts)
-}, [posts])
+  console.log(albumPhotos)
+}, [albumPhotos])
 
 function addPost(userId, theme, message){
   setNewPostnumber(e => e + 1)
   sendPost(userId, theme, message, setPosts, newPostnumber)
 }
+
+function showAlbum(id){
+  setAlbumId(id)
+  let com = `?albumId=${id}`
+  getList('https://jsonplaceholder.typicode.com/photos', setAlbumPhotos, com)
+}
+
+let album = albums.length > 0 ? <Albums albums={albums} findUser={findUser} showAlbum={showAlbum}/> : <Loader />
+let photos = albumPhotos.length > 0 ? <ShowAlbum /> : <Loader />
   return (
     <div className="App">
        <Navbar />
@@ -79,7 +95,14 @@ function addPost(userId, theme, message){
           posts.length > 0 ? <PostList postsp={posts} findUser={findUser}/> : <Loader />
         }<br/>
         <PostAdd addPost={addPost}/>
-        
+        {/* {
+          albums.length > 0 ? <Albums albums={albums} findUser={findUser} showAlbum={showAlbum}/> : <Loader />
+        } */}
+        {
+          albumId ? 
+          photos : 
+          album
+        }
       </div>
     </div>
   );

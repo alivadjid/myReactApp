@@ -6,7 +6,6 @@ const Users = ({usersp}) => {
     
     useEffect(() => {
         setUsers(usersp)
-        console.log('userComp',users)
     }, [usersp])
     
     
