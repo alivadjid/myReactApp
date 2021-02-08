@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './Users.css'
 
-const Users = ({usersp}) => {
-    const [users, setUsers] = useState([])
+const Users = ({ users }) => {
+    // const [users, setUsers] = useState([])
     
-    useEffect(() => {
-        setUsers(usersp)
-        console.log('users Load')
-    }, [usersp])
+    // useEffect(() => {
+    //     setUsers(usersp)
+    //     console.log('users Load')
+    // }, [usersp])
     
     return (
         <div className="users" id="userList">

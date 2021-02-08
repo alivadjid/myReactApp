@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 
 import './PostList.css'
 
-const PostList = ({postsp, findUser}) => {
-    const [posts, setPosts] = useState([])
+const PostList = ({posts, findUser}) => {
+    // const [posts, setPosts] = useState([])
 
-    useEffect(()=> {
-        setPosts(postsp)
-        console.log('Posts Load')
-    }, [postsp])
+    // useEffect(()=> {
+    //     setPosts(postsp)
+    //     console.log('Posts Load')
+    // }, [postsp])
     return (
         <div className="posts" id="postList">
             <h4>

@@ -18,7 +18,7 @@ function getList(url,func, com = ''){
 }
 
 function sendPost(userId, theme, message, setPosts, newPostnumber){
-  let obj = {}
+  
   fetch('https://jsonplaceholder.typicode.com/posts', {
   method: 'POST',
   body: JSON.stringify({
@@ -97,10 +97,10 @@ let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos} userD
        <Navbar />
       <div className="container">
         {
-          users.length > 0 ? <Users usersp={users}/> : <Loader />        
+          users.length > 0 ? <Users users={users}/> : <Loader />        
         }<br/>
         {
-          posts.length > 0 ? <PostList postsp={posts} findUser={findUser}/> : <Loader />
+          posts.length > 0 ? <PostList posts={posts} findUser={findUser}/> : <Loader />
         }<br/>
         <PostAdd addPost={addPost}/>
         {
