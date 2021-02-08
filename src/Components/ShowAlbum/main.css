@@ -1,0 +1,8 @@
+.showAlbum__list {
+	grid-template-columns: 30ch 30ch 30ch 30ch;
+	display: grid;
+}
+.showAlbum__list__item img{
+	width: 200px;
+	height: 200px;
+}

@@ -8,6 +8,7 @@ import Loader from './Components/Loader'
 import PostAdd from './Components/AddPost'
 import Albums from './Components/Albums'
 import ShowAlbum from './Components/ShowAlbum'
+import {usersUrl, postsUrl, albumsUrl, photosUrl} from './Const'
 
 function getList(url,func, com = ''){
   let urlF = url + com
@@ -47,24 +48,29 @@ function App() {
   const [albumPhotos, setAlbumPhotos] = useState([])
 
   useEffect(() => {      
-  getList('https://jsonplaceholder.typicode.com/users', setUsers)  
-  getList('https://jsonplaceholder.typicode.com/posts', setPosts)
-  getList('https://jsonplaceholder.typicode.com/albums', setAlbums)
+  getList(usersUrl, setUsers)  
+  getList(postsUrl, setPosts)
+  getList(albumsUrl, setAlbums)
 }, [])
 
 function findUser(id){
-  let obj = users.find(val => val.id == id)
-  return (
+  let obj
+  if (users.length > 0) {
+    obj = users.find(val => val.id == id)
+    return (
       <div className="posts__list__info"> 
-          <div className="posts__list__username">
-              Логин: {obj.username}
-          </div>
-          <div className="posts__list__email">
-              Почта: {obj.email}
-          </div>
+        <div className="posts__list__username">
+          Логин: {obj.username}
+        </div>
+        <div className="posts__list__email">
+          Почта: {obj.email}
+        </div>
       </div>
-      
-  )
+    )
+  } else {
+    return <Loader />
+  }
+  
 }
 
 useEffect(() => {
@@ -79,11 +85,11 @@ function addPost(userId, theme, message){
 function showAlbum(id){
   setAlbumId(id)
   let com = `?albumId=${id}`
-  getList('https://jsonplaceholder.typicode.com/photos', setAlbumPhotos, com)
+  getList(photosUrl, setAlbumPhotos, com)
 }
 
 let album = albums.length > 0 ? <Albums albums={albums} findUser={findUser} showAlbum={showAlbum}/> : <Loader />
-let photos = albumPhotos.length > 0 ? <ShowAlbum /> : <Loader />
+let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos}/> : <Loader />
   return (
     <div className="App">
        <Navbar />
@@ -95,9 +101,6 @@ let photos = albumPhotos.length > 0 ? <ShowAlbum /> : <Loader />
           posts.length > 0 ? <PostList postsp={posts} findUser={findUser}/> : <Loader />
         }<br/>
         <PostAdd addPost={addPost}/>
-        {/* {
-          albums.length > 0 ? <Albums albums={albums} findUser={findUser} showAlbum={showAlbum}/> : <Loader />
-        } */}
         {
           albumId ? 
           photos : 
