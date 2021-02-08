@@ -22,6 +22,9 @@ const PostList = ({postsp, findUser}) => {
                         return (
                             <div className="posts__list__item" key={e.id}>
                                 {findUser(e.userId)}
+                                <div className="posts__list__title">
+                                    Тема: {e.title}
+                                </div>
                                 <div className="posts__list__body">
                                     {e.body} 
                                 </div>                               

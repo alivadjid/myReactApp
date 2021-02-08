@@ -7,6 +7,13 @@ const PostAdd = ({addPost}) => {
 	const [ theme, setTheme ] = useState('')
 	const [ message, setMessage ] = useState('')
 
+	function newPost(){
+		addPost(userId, theme, message)
+		setUserId('')
+		setTheme('')
+		setMessage('')
+	}
+	
 	return (
 		<div className="addpost" id="addpost">
 			<h3>Добавить Запись</h3>
@@ -22,7 +29,7 @@ const PostAdd = ({addPost}) => {
 				</div>
 				
 			</div>
-			<button className="addpost__item__btn" onClick={()=> addPost(userId, theme, message)}>Добавить</button>
+			<button className="addpost__item__btn" onClick={()=> newPost()}>Добавить</button>
 		</div>
 	)
 }

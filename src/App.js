@@ -13,8 +13,8 @@ function getList(url,func){
     .then(res => func(res))
 }
 
-function sendPost(userId, theme, message, setPosts){
-  //setPosts([{userId: 1, id: 1, title:'hello', body:'from' }, {userId: 3, id: 2, title:'привет', body:'от' }])
+function sendPost(userId, theme, message, setPosts, newPostnumber){
+  let obj = {}
   fetch('https://jsonplaceholder.typicode.com/posts', {
   method: 'POST',
   body: JSON.stringify({
@@ -27,12 +27,18 @@ function sendPost(userId, theme, message, setPosts){
   },
 })
   .then((response) => response.json())
-  .then((json) => setPosts( el => [...el, json]));
+  .then((json) =>{
+    for(let key in json){
+      if(key == 'id') {json[key] = newPostnumber}
+    }
+  setPosts( el => [...el, json])
+  })
 }
 
 function App() {
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
+  const [newPostnumber, setNewPostnumber] = useState(101)
 
   useEffect(() => {      
   getList('https://jsonplaceholder.typicode.com/users', setUsers)  
@@ -59,8 +65,8 @@ useEffect(() => {
 }, [posts])
 
 function addPost(userId, theme, message){
-  sendPost(userId, theme, message, setPosts)
-  
+  setNewPostnumber(e => e + 1)
+  sendPost(userId, theme, message, setPosts, newPostnumber)
 }
   return (
     <div className="App">
