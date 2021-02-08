@@ -7,10 +7,8 @@ const PostList = ({postsp, findUser}) => {
 
     useEffect(()=> {
         setPosts(postsp)
+        console.log('Posts Load')
     }, [postsp])
-    
-    
-   
     return (
         <div className="posts" id="postList">
             <h4>

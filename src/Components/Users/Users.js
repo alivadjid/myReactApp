@@ -6,10 +6,9 @@ const Users = ({usersp}) => {
     
     useEffect(() => {
         setUsers(usersp)
+        console.log('users Load')
     }, [usersp])
     
-    
- 
     return (
         <div className="users" id="userList">
             <h4> Пользователи</h4>
