@@ -7,48 +7,22 @@ import PostList from './Components/PostList/PostList'
 import Loader from './Components/Loader'
 import PostAdd from './Components/AddPost'
 import Albums from './Components/Albums'
-import ShowAlbum from './Components/ShowAlbum'
-import {usersUrl, postsUrl, albumsUrl, photosUrl} from './Const'
+
+import {usersUrl, postsUrl, albumsUrl } from './Const'
 import {Context} from './Context'
+import { getList, sendPost } from './Services'
 
-function getList(url,func, com = ''){
-  let urlF = url + com
-  fetch(urlF)
-    .then((res) => res.json())
-    .then(res => func(res))
-}
 
-function sendPost(userId, theme, message, setPosts, newPostnumber){
-  
-  fetch('https://jsonplaceholder.typicode.com/posts', {
-  method: 'POST',
-  body: JSON.stringify({
-    title: theme,
-    body: message,
-    userId
-  }),
-  headers: {
-    'Content-type': 'application/json; charset=UTF-8',
-  },
-})
-  .then((response) => response.json())
-  .then((json) =>{
-    for(let key in json){
-      if(key == 'id') {json[key] = newPostnumber}
-    }
-  setPosts( el => [...el, json])
-  })
-}
+
 
 function App() {
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [newPostnumber, setNewPostnumber] = useState(101)
   const [albums, setAlbums] = useState([])
-  const [albumId, setAlbumId] = useState(0)
-  const [albumPhotos, setAlbumPhotos] = useState([])
-  const [userData, setUserData] = useState('')
-
+  
+  
+  
   useEffect(() => {      
   getList(usersUrl, setUsers)  
   getList(postsUrl, setPosts)
@@ -75,25 +49,20 @@ function findUser(id){
   
 }
 
-useEffect(() => {
-  console.log(albumPhotos)
-}, [albumPhotos])
+// useEffect(() => {
+//   console.log(albumPhotos)
+// }, [albumPhotos])
 
 function addPost(userId, theme, message){
   setNewPostnumber(e => e + 1)
   sendPost(userId, theme, message, setPosts, newPostnumber)
 }
 
-function showAlbum(id, userId){
-  setAlbumId(id)
-  setUserData(findUser(userId))
-  let com = `?albumId=${id}`
-  getList(photosUrl, setAlbumPhotos, com)
-}
 
 
-let album = albums.length > 0 ? <Albums albums={albums} showAlbum={showAlbum}/> : <Loader />
-let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos} userData={userData} setAlbumId={setAlbumId}/> : <Loader />
+
+let album = albums.length > 0 ? <Albums albums={albums} /> : <Loader /> //<Albums showAlbum={showAlbum} />
+//let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos} userData={userData} setAlbumId={setAlbumId}/> : <Loader />
 
   return (
     <Context.Provider value={{findUser}}>
@@ -107,11 +76,12 @@ let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos} userD
           posts.length > 0 ? <PostList posts={posts}/> : <Loader />
         }<br/>
         <PostAdd addPost={addPost}/>
-        {
+        { album }
+        {/* {
           albumId ? 
           photos : 
           album
-        }
+        } */}
       </div>
     </div>
     </Context.Provider>

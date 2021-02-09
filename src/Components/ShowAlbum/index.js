@@ -6,6 +6,7 @@ const ShowAlbum = ({albumPhotos, userData, setAlbumId}) => {
 	
 	return (
 		<div className="showAlbum">
+			<h4>Данные альбома</h4>
 			{userData}
 			<button onClick={() => setAlbumId(0)}>Вернуться назад</button>
 			<div className="showAlbum__list">
@@ -13,7 +14,7 @@ const ShowAlbum = ({albumPhotos, userData, setAlbumId}) => {
 			{
 				albumPhotos.map(e => {
 					return (
-						<div className="showAlbum__list__item" key={e.id}>
+						<div className="showAlbum__list__item" key={e.id} >
 							<img src={e.url}/>
 							<div>
 								{e.title}
