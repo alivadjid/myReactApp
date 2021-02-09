@@ -2,7 +2,7 @@ import React from 'react'
 
 import './main.css'
 
-const ShowAlbum = ({albumPhotos, userData, setAlbumId}) => {
+const ShowAlbum = ({data: {albumPhotos, userData, setAlbumId}}) => {
 	
 	return (
 		<div className="showAlbum">

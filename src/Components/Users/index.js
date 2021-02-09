@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import './Users.css'
+import React from 'react'
+import './main.css'
 
 const Users = ({ users }) => {
-    // const [users, setUsers] = useState([])
-    
-    // useEffect(() => {
-    //     setUsers(usersp)
-    //     console.log('users Load')
-    // }, [usersp])
-    
     return (
         <div className="users" id="userList">
             <h4> Пользователи</h4>

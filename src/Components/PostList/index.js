@@ -1,10 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react'
+import PostAdd from '../AddPost'
+import { sendPost } from '../../Services'
 import {Context} from '../../Context'
 
-import './PostList.css'
+import './main.css'
 
-const PostList = ({posts}) => {
+const PostList = ({data: {posts, setPosts}}) => {
+  const [newPostnumber, setNewPostnumber] = useState(101)
+  
   const { findUser } = useContext(Context)
+
+  function addPost(userId, theme, message){
+    setNewPostnumber(e => e + 1)
+    sendPost(userId, theme, message, setPosts, newPostnumber)
+  }
     return (
         <div className="posts" id="postList">
             <h4>
@@ -27,6 +36,7 @@ const PostList = ({posts}) => {
                     })
                 }
             </div>
+            <PostAdd addPost={addPost}/>
         </div>
     )
 }

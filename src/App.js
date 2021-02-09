@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from 'react'
 
-import './App.css'
-import Navbar from './Components/Navbar/Navbar'
-import Users from './Components/Users/Users'
-import PostList from './Components/PostList/PostList'
+import Navbar from './Components/Navbar'
+import Users from './Components/Users'
+import PostList from './Components/PostList'
 import Loader from './Components/Loader'
-import PostAdd from './Components/AddPost'
 import Albums from './Components/Albums'
 
 import {usersUrl, postsUrl, albumsUrl } from './Const'
 import {Context} from './Context'
-import { getList, sendPost } from './Services'
+import { getList } from './Services'
 
-
+import './App.css'
 
 
 function App() {
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
-  const [newPostnumber, setNewPostnumber] = useState(101)
   const [albums, setAlbums] = useState([])
-  
-  
   
   useEffect(() => {      
   getList(usersUrl, setUsers)  
@@ -49,21 +44,6 @@ function findUser(id){
   
 }
 
-// useEffect(() => {
-//   console.log(albumPhotos)
-// }, [albumPhotos])
-
-function addPost(userId, theme, message){
-  setNewPostnumber(e => e + 1)
-  sendPost(userId, theme, message, setPosts, newPostnumber)
-}
-
-
-
-
-let album = albums.length > 0 ? <Albums albums={albums} /> : <Loader /> //<Albums showAlbum={showAlbum} />
-//let photos = albumPhotos.length > 0 ? <ShowAlbum albumPhotos={albumPhotos} userData={userData} setAlbumId={setAlbumId}/> : <Loader />
-
   return (
     <Context.Provider value={{findUser}}>
       <div className="App">
@@ -73,15 +53,9 @@ let album = albums.length > 0 ? <Albums albums={albums} /> : <Loader /> //<Album
           users.length > 0 ? <Users users={users}/> : <Loader />        
         }<br/>
         {
-          posts.length > 0 ? <PostList posts={posts}/> : <Loader />
+          posts.length > 0 ? <PostList data={{posts, setPosts}}/> : <Loader />
         }<br/>
-        <PostAdd addPost={addPost}/>
-        { album }
-        {/* {
-          albumId ? 
-          photos : 
-          album
-        } */}
+        { albums.length > 0 ? <Albums albums={albums} /> : <Loader /> }
       </div>
     </div>
     </Context.Provider>

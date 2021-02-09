@@ -19,7 +19,7 @@ const PostAdd = ({addPost}) => {
 			<h3>Добавить Запись</h3>
 			<div className="addpost__item">
 				<div className="addpost__item__list">
-				<input type="text"placeholder="userId" value={userId} onChange={e => setUserId(e.target.value)}/>
+				<input type="text"placeholder="userId (1-10)" value={userId} onChange={e => setUserId(e.target.value)}/>
 				</div>
 				<div className="addpost__item__list">
 					<input type="text"placeholder="тема" value={theme} onChange={e => setTheme(e.target.value)}/>
